@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>New Document</title>
+    <meta name="Generator" content="EditPlus">
+    <meta name="Author" content="">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <style>
+        body {
+            background-color: #e600e6;
+        }
+    </style>
+</head>
+<body>
+    <form id="loginForm">
+        <center>
+            <h1><u>Login Page</u></h1>
+            <h2>
+                Username: <input type="text" id="uname" name="uname" required />
+                Password: <input type="password" id="pwd" name="pwd" required />
+                <input type="submit" value="click me" />
+            </h2>
+        </center>
+    </form>
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            var username = document.getElementById("uname").value;
+            var password = document.getElementById("pwd").value;
+            
+            if (username === "user" && password === "pswd") {
+                document.body.innerHTML = "<h1>Welcome to " + username + "</h1>";
+            } else {
+                document.body.innerHTML = "<h1>Registration success</h1><a href='index.html'>Click for Home page</a>";
+            }
+        });
+    </script>
+</body>
+</html>

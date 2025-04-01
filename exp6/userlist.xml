@@ -1,0 +1,37 @@
+<userlist>
+    <user>
+        <userid>usr01</userid>
+        <username>xxxx</username>
+        <address>Coimbatore</address>
+        <phone>9123456789</phone>
+        <email>xxxx@gmail.com</email>
+    </user>
+    <user>
+        <userid>usr02</userid>
+        <username>srivarsha</username>
+        <address>Coimbatore</address>
+        <phone>9364689543</phone>
+        <email>srivarsha@gmail.com</email>
+    </user>
+    <user>
+        <userid>usr03</userid>
+        <username>zzzz</username>
+        <address>Telangana</address>
+        <phone>9222222222</phone>
+        <email>zzzz@gmail.com</email>
+    </user>
+    <user>
+        <userid>usr04</userid>
+        <username>abcd</username>
+        <address>Bangalore</address>
+        <phone>9555555555</phone>
+        <email>abcd@gmail.com</email>
+    </user>
+    <user>
+        <userid>usr05</userid>
+        <username>efgh</username>
+        <address>Perambalur</address>
+        <phone>9666666666</phone>
+        <email>efgh@gmail.com</email>
+    </user>
+</userlist>

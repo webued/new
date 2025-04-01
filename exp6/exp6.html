@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search User</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #displayDIV { margin-top: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f9f9f9; }
+    </style>
+    <script>
+        function readXMLData() {
+            var xmlString = `
+                <userlist>
+                    <user>
+                        <userid>usr01</userid>
+                        <username>xxxx</username>
+                        <address>Coimbatore</address>
+                        <phone>9123456789</phone>
+                        <email>xxxx@gmail.com</email>
+                    </user>
+                    <user>
+                        <userid>usr02</userid>
+                        <username>srivarsha</username>
+                        <address>Coimbatore</address>
+                        <phone>9364689543</phone>
+                        <email>srivarsha@gmail.com</email>
+                    </user>
+                    <user>
+                        <userid>usr03</userid>
+                        <username>zzzz</username>
+                        <address>Telangana</address>
+                        <phone>9222222222</phone>
+                        <email>zzzz@gmail.com</email>
+                    </user>
+                    <user>
+                        <userid>usr04</userid>
+                        <username>abcd</username>
+                        <address>Bangalore</address>
+                        <phone>9555555555</phone>
+                        <email>abcd@gmail.com</email>
+                    </user>
+                    <user>
+                        <userid>usr05</userid>
+                        <username>efgh</username>
+                        <address>Perambalur</address>
+                        <phone>9666666666</phone>
+                        <email>efgh@gmail.com</email>
+                    </user>
+                </userlist>
+            `;
+            var parser = new DOMParser();
+            var xmlData = parser.parseFromString(xmlString, "text/xml");
+
+            var users = xmlData.getElementsByTagName("user");
+            var inputId = document.getElementById("myText").value.trim();
+            var outputDiv = document.getElementById("displayDIV");
+
+            outputDiv.innerHTML = "<b>User Not Found</b>"; // Default message
+
+            for (var i = 0; i < users.length; i++) {
+                var userId = users[i].getElementsByTagName("userid")[0].textContent;
+                if (userId === inputId) {
+                    var name = users[i].getElementsByTagName("username")[0].textContent;
+                    var address = users[i].getElementsByTagName("address")[0].textContent;
+                    var phone = users[i].getElementsByTagName("phone")[0].textContent;
+                    var email = users[i].getElementsByTagName("email")[0].textContent;
+
+                    outputDiv.innerHTML = `<b>User ID:</b> ${userId} <br>
+                                           <b>Name:</b> ${name} <br>
+                                           <b>Address:</b> ${address} <br>
+                                           <b>Phone:</b> ${phone} <br>
+                                           <b>Email:</b> ${email}`;
+                    break;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Search User</h1>
+    <input type="text" id="myText" placeholder="Enter User ID">
+    <input type="button" value="Get User Details" onclick="readXMLData()">
+    <div id="displayDIV"></div>
+</body>
+</html>

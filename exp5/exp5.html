@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Examination</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: cyan;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+            background: white;
+            padding: 20px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            text-align: left;
+        }
+
+        label, p {
+            font-size: 18px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
+
+        button {
+            background: blue;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        th {
+            background: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Online Examination</h1>
+        <form id="examForm">
+            <label><b>Seat Number:</b></label>
+            <input type="text" id="seat_no" required>
+            
+            <label><b>Name:</b></label>
+            <input type="text" id="name" required>
+            
+            <br><br>
+
+            <p><b>1. Every host implements transport layer.</b></p>
+            <input type="radio" name="group1" value="True"> True
+            <input type="radio" name="group1" value="False"> False
+
+            <p><b>2. It is a network layer's responsibility to forward packets reliably from source to destination.</b></p>
+            <input type="radio" name="group2" value="True"> True
+            <input type="radio" name="group2" value="False"> False
+
+            <p><b>3. Packet switching is more useful in bursty traffic.</b></p>
+            <input type="radio" name="group3" value="True"> True
+            <input type="radio" name="group3" value="False"> False
+
+            <p><b>4. A phone network uses packet switching.</b></p>
+            <input type="radio" name="group4" value="True"> True
+            <input type="radio" name="group4" value="False"> False
+
+            <p><b>5. HTML is a protocol for describing web contents.</b></p>
+            <input type="radio" name="group5" value="True"> True
+            <input type="radio" name="group5" value="False"> False
+
+            <br><br>
+            <button type="submit">Submit</button>
+        </form>
+
+        <div id="result" class="hidden">
+            <h2>Thank you for participating in the online exam!</h2>
+            <p><b>Seat No:</b> <span id="resSeatNo"></span></p>
+            <p><b>Name:</b> <span id="resName"></span></p>
+            <p><b>Total Marks:</b> <span id="resTotal"></span></p>
+            <h3>Participants and Their Marks</h3>
+            <table border="1" id="scoreTable">
+                <tr>
+                    <th>Seat No</th>
+                    <th>Name</th>
+                    <th>Marks</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("examForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent page reload
+
+            let seatNo = document.getElementById("seat_no").value;
+            let name = document.getElementById("name").value;
+
+            let answers = {
+                group1: "True",
+                group2: "False",
+                group3: "True",
+                group4: "False",
+                group5: "False"
+            };
+
+            let total = 0;
+
+            for (let i = 1; i <= 5; i++) {
+                let selected = document.querySelector(`input[name="group${i}"]:checked`);
+                if (selected && selected.value === answers[`group${i}`]) {
+                    total += 2;
+                }
+            }
+
+            // Show result
+            document.getElementById("resSeatNo").textContent = seatNo;
+            document.getElementById("resName").textContent = name;
+            document.getElementById("resTotal").textContent = total;
+            
+            document.getElementById("result").classList.remove("hidden");
+
+            // Store data in localStorage
+            let scores = JSON.parse(localStorage.getItem("examScores")) || [];
+            scores.push({ seatNo, name, total });
+            localStorage.setItem("examScores", JSON.stringify(scores));
+
+            // Update table
+            updateScoreTable();
+        });
+
+        // Function to update score table
+        function updateScoreTable() {
+            let scores = JSON.parse(localStorage.getItem("examScores")) || [];
+            let table = document.getElementById("scoreTable");
+
+            // Remove old rows except headers
+            table.innerHTML = `
+                <tr>
+                    <th>Seat No</th>
+                    <th>Name</th>
+                    <th>Marks</th>
+                </tr>
+            `;
+
+            scores.forEach(score => {
+                let row = table.insertRow();
+                row.insertCell(0).textContent = score.seatNo;
+                row.insertCell(1).textContent = score.name;
+                row.insertCell(2).textContent = score.total;
+            });
+        }
+
+        // Load previous scores on page load
+        document.addEventListener("DOMContentLoaded", updateScoreTable);
+    </script>
+</body>
+</html>

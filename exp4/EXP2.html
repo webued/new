@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Registration Page</title>
+    <style>
+        body {
+            background-color: cyan;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>WELCOME TO REGISTRATION PAGE</h1>
+        <form id="registrationForm">
+            Name: <input type="text" id="name" name="name" required><br><br>
+            Password: <input type="password" id="password" name="password" required><br><br>
+            PROFESSION:
+            <select id="profession" name="profession">
+                <option value="engineer">ENGINEER</option>
+                <option value="teacher">TEACHER</option>
+                <option value="businessman">BUSINESSMAN</option>
+            </select><br><br>
+            <input type="submit" value="REGISTER">
+        </form>
+    </center>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            var name = document.getElementById("name").value;
+            var password = document.getElementById("password").value;
+            var profession = document.getElementById("profession").value;
+            
+            document.body.innerHTML = `
+                <html>
+                <body style="background-color: wheat;">
+                    <center>
+                        <h1>COMPLETE THE REGISTRATION</h1>
+                        <form id="completeRegistrationForm">
+                            <input type="hidden" id="name" value="${name}">
+                            <input type="hidden" id="password" value="${password}">
+                            <input type="hidden" id="profession" value="${profession}">
+                            EMAIL ID:<input type="text" id="email" required><br><br>
+                            PHONE NO:<input type="text" id="cell" required><br><br>
+                            <input type="submit" value="REGISTER NOW">
+                        </form>
+                    </center>
+                </body>
+                </html>`;
+            
+            document.getElementById("completeRegistrationForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+                
+                document.body.innerHTML = `
+                    <html>
+                    <body style="background-color: wheat;">
+                        <center>
+                            <h1>REGISTRATION SUCCESSFUL..........</h1>
+                        </center>
+                    </body>
+                    </html>`;
+            });
+        });
+    </script>
+</body>
+</html>

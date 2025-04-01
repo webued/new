@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 50px; background: #f4f4f4; }
+        .container { width: 50%; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        .error { color: red; font-size: 14px; }
+        label, input { display: block; width: 100%; margin: 5px 0; }
+        input { padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
+        input[type="submit"] { background: #28a745; color: white; border: none; cursor: pointer; }
+        input[type="submit"]:hover { background: #218838; }
+    </style>
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            let valid = true;
+            let fields = ['name', 'email', 'password', 'phone'];
+            let errors = {
+                name: "Name is required",
+                email: "Invalid email format",
+                password: "Password must be at least 8 characters, include one uppercase, one lowercase, one number, and one special character",
+                phone: "Phone number must be 10 digits"
+            };
+            
+            fields.forEach(id => {
+                let value = document.getElementById(id).value.trim();
+                let errorSpan = document.getElementById(id + 'Error');
+                errorSpan.innerHTML = "";
+                
+                if ((id === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) ||
+                    (id === 'password' && !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(value)) ||
+                    (id === 'phone' && !/^\d{10}$/.test(value)) ||
+                    (id === 'name' && value === "")) {
+                    errorSpan.innerHTML = errors[id];
+                    valid = false;
+                }
+            });
+            
+            if (valid) {
+                let username = document.getElementById('name').value;
+                localStorage.setItem('username', username);
+                alert("User successfully created. Welcome, " + username + "!");
+                window.location.href = "welcome.html";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Form Validation</h2>
+        <form onsubmit="validateForm(event)">
+            <label>Name:</label>
+            <input type="text" id="name">
+            <span id="nameError" class="error"></span>
+            
+            <label>Email:</label>
+            <input type="text" id="email">
+            <span id="emailError" class="error"></span>
+            
+            <label>Password:</label>
+            <input type="password" id="password">
+            <span id="passwordError" class="error"></span>
+            
+            <label>Phone:</label>
+            <input type="text" id="phone">
+            <span id="phoneError" class="error"></span>
+            
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<html>
+<body bgcolor=”blue”><br><br><br>
+<script language=”javascript”>
+function validate()
+{
+var flag=1;
+if(document.myform.id.value==""||document.myform.pwd.value=="")
+{
+alert("LoginId and Password must be filled")
+ flag=0;
+}
+if(flag==1)
+{
+alert(“VALID INPUT”);
+ window.open("catalog.html","right");
+}
+else
+{
+alert(“INVALID INPUT”);
+//document.myform.focus();
+}
+}
+</script>
+<form name=”myform”>
+<div align=”center”><pre>
+LOGIN ID:<input type=”text” name=”id”><br>
+PASSWORD:<input type=”password” name=”pwd”>
+<br><br>
+</pre>
+<input type=”button” value=”ok” onClick=”validate()”>
+<input type=”reset” value=”clear”>
+</div>
+</form>
+</body>
+</html>
